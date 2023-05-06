@@ -1,9 +1,12 @@
 import React from "react";
 
+import Nav from "../components/Nav";
+
+// Home page component
 function App() {
   return (
     <div className="section-container">
-      <h1>React App</h1>
+      <Nav />
     </div>
   );
 }

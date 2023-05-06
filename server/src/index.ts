@@ -5,6 +5,9 @@ import session from 'express-session';
 import { Strategy as LocalStrategy} from 'passport-local';
 import bcrypt from 'bcryptjs';
 import User from './models/user';
+import cors from 'cors';
+import indexRouter from './routes/index';
+import indexController from './controllers/indexController';
 
 // get dotenv config if not in production
 if (process.env.NODE_ENV !== 'production') {
@@ -68,10 +71,15 @@ passport.deserializeUser(async function(id, done) {
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(cors());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const port = process.env.PORT || 3000;
+
+// routes
+app.post('/signup', indexController.sign_up);
+
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
