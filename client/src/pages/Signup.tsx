@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import { toast } from "react-toastify";
 
 // components
@@ -15,15 +15,22 @@ function Signup() {
 
   const [isSignedUp, setIsSignedUp] = useState(false);
 
+  // signup function
   const signup = async (data: FormData) => {
     try {
+      // send credentials to server
       const res = await axios.post("http://localhost:3001/signup", data);
-      // if successful
+    
+      // if error, throw error
+      if (res.status !== 201) throw new Error(res.data.message);
+
+      // set isSignedUp state
       setIsSignedUp(true);
-      // toastify
-      toast.success('Account created, please log in', {
+
+      // toast signup success
+      toast.success(res.data.message, {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -34,13 +41,14 @@ function Signup() {
       // redirect to login page
       setTimeout(() => {
         window.location.href = "/login";
-      }, 3000);
+      }, 2000);
 
     } catch (err: any) {
-      // if unsuccessful
-      toast.error(err.response.data, {
+      const message = err.response.data.message;
+      // toast error
+      toast.error(message, {
         position: "top-center",
-        autoClose: 3000,
+        autoClose: 1500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -60,13 +68,17 @@ function Signup() {
         </h2>
         {isSignedUp === false ? (
           <>
-            <UserForm action={signup} />
+            {/* Sign up form */}
+            <UserForm action={signup} button="Sign up" />
+            
+            {/* Log in link */}
             <div className="mt-8">
               <span>Already have an account? </span>
               <Link to="/login" className="font-medium text-indigo-600">Log in now.</Link>
             </div>
           </>
         ) : (  
+          // redirect to login page
           <p className="mt-16">Redirecting to login page...</p>
         )}
       </main>

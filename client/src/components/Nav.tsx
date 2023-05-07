@@ -1,8 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 // Navbar component
 const Nav: FC = () => {
+  const { auth, setAuth } = useContext(UserContext);
+
+  const handleLogout = () => {
+    // Remove token from local storage
+    localStorage.removeItem("token");
+    // Set auth to false
+    setAuth({
+      isAuth: false,
+      username: null,
+    });
+  };
+
   return (
     <nav className="section-container">
       <div className="flex">
@@ -12,7 +25,15 @@ const Nav: FC = () => {
           </Link>
         </div>
         <div>
-          <Link to="/login">Log in</Link>
+          {auth.isAuth === false ? (
+            // Login button
+            <Link to="/login">
+              <button className="button px-5">Log in</button>
+            </Link>
+          ) : (
+            // Logout button
+            <button onClick={handleLogout} className="button px-5">Log out</button>
+          )}
         </div>
       </div>
     </nav>

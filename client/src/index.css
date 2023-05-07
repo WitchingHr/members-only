@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+:root {
+  @apply dark:bg-slate-800;
+  @apply dark:text-slate-100;
+}
+
+input {
+  @apply dark:bg-slate-700;
+  @apply dark:text-slate-100;
+  @apply dark:border-slate-600;
+}
+
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -11,4 +23,8 @@ body {
   margin: 0 auto;
   padding: 30px 8%;
   width: 100%;
+}
+
+.button {
+  @apply py-1.5 rounded-lg bg-indigo-600 text-white font-medium;
 }
