@@ -5,18 +5,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./pages/App";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import NotFound from "./pages/404";
 
 // RouterSwitch component
 const RouterSwitch = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<App />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+		</BrowserRouter>
+	);
 };
 
 export default RouterSwitch;

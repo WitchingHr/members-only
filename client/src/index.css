@@ -8,7 +8,8 @@
   @apply dark:text-slate-100;
 }
 
-input {
+input,
+textarea {
   @apply dark:bg-slate-700;
   @apply dark:text-slate-100;
   @apply dark:border-slate-600;
@@ -16,6 +17,7 @@ input {
 
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  min-width: 320px;
 }
 
 .section-container {
@@ -26,5 +28,28 @@ body {
 }
 
 .button {
-  @apply py-1.5 rounded-lg bg-indigo-600 text-white font-medium;
+  @apply py-1.5 rounded-lg text-center bg-indigo-600 text-white font-medium;
+}
+
+.user-form {
+  width: min(100%, 400px);
+}
+
+.message-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .section-container {
+    padding: 15px 4%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .message-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 }

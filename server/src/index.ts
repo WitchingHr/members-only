@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import indexController from './controllers/indexController';
+import apiRouter from './routes/api';
 
 // get dotenv config if not in production
 if (process.env.NODE_ENV !== 'production') {
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/verify', indexController.verify);
 app.post('/signup', indexController.sign_up);
 app.post('/login', indexController.log_in);
+app.use('/api', apiRouter);
 
 // start server
 const port = process.env.PORT || 3001;
