@@ -1,6 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import compression from 'compression';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import indexController from './controllers/indexController';
 import apiRouter from './routes/api';
 
@@ -19,6 +22,12 @@ mongoose.connect(db_url).then(() => console.log('Connected to DB'));
 const app = express();
 
 // configure middleware
+app.use(compression());
+app.use(helmet());
+app.use(rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minutes
+  max: 20 // limit each IP to 100 requests per windowMs
+}));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
